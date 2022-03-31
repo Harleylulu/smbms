@@ -20,6 +20,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/harley/dao/UserMapper.xml"/>
+        <mapper resource="com/harley/mapper/UserMapper.xml"/>
     </mappers>
 </configuration>

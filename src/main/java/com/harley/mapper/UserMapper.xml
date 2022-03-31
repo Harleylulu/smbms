@@ -2,8 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.harley.dao.UserMapper">
+<mapper namespace="com.harley.mapper.UserMapper">
     <select id="getAllUser" resultType="com.harley.pojo.User">
         select * from smbms.smbms_user
+    </select>
+
+    <select id="getUserByUserCode" resultType="com.harley.pojo.User">
+        select * from smbms.smbms_user where userCode = #{userCode}
     </select>
 </mapper>

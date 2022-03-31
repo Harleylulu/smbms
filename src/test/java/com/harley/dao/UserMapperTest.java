@@ -1,5 +1,6 @@
 package com.harley.dao;
 
+import com.harley.mapper.UserMapper;
 import com.harley.pojo.User;
 import com.harley.util.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -17,5 +18,17 @@ public class UserMapperTest {
             System.out.println(user);
         }
         session.close();
+    }
+
+    @Test
+    public void testGetUserByUserCode(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        User user = mapper.getUserByUserCode("wen");
+        System.out.println("============================");
+        System.out.println(user);
+        System.out.println("============================");
+        session.close();
+
     }
 }
