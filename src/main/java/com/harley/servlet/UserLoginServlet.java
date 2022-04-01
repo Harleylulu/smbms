@@ -26,7 +26,6 @@ public class UserLoginServlet extends HttpServlet {
         } else {
             req.setAttribute("error", "用户名或密码不正确哟～");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
-            // TODO:验证frame.jsp是否能正确显示
         }
     }
 
