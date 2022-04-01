@@ -29,6 +29,15 @@ public class UserMapperTest {
         System.out.println(user);
         System.out.println("============================");
         session.close();
+    }
 
+    @Test
+    public void testUpdatePassword(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int wen = mapper.UpdateUserPwd("wen", "123456");
+        System.out.println("更新返回值为："+wen);
+        session.commit();
+        session.close();
     }
 }

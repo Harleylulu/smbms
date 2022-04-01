@@ -16,9 +16,10 @@ $(function(){
 	oldpassword.on("blur",function(){
 		$.ajax({
 			type:"GET",
-			url:path+"/user/check",
-			data:{oldpassword:oldpassword.val()},
-				success:function(data){
+			url:path+"/jsp/user.do",
+			data:{method:"pwdmodify",oldpassword:oldpassword.val()},
+			dataType:"json",
+			success:function(data){
 				if(data.result == "true"){//旧密码正确
 					validateTip(oldpassword.next(),{"color":"green"},imgYes,true);
 				}else if(data.result == "false"){//旧密码输入不正确
@@ -34,8 +35,8 @@ $(function(){
 				validateTip(oldpassword.next(),{"color":"red"},imgNo + " 请求错误",false);
 			}
 		});
-
-
+		
+		
 	}).on("focus",function(){
 		validateTip(oldpassword.next(),{"color":"#666666"},"* 请输入原密码",false);
 	});
@@ -43,7 +44,7 @@ $(function(){
 	newpassword.on("focus",function(){
 		validateTip(newpassword.next(),{"color":"#666666"},"* 密码长度必须是大于6小于20",false);
 	}).on("blur",function(){
-		if(newpassword.val() != null && newpassword.val().length >= 6
+		if(newpassword.val() != null && newpassword.val().length > 5
 				&& newpassword.val().length < 20 ){
 			validateTip(newpassword.next(),{"color":"green"},imgYes,true);
 		}else{
@@ -55,7 +56,7 @@ $(function(){
 	rnewpassword.on("focus",function(){
 		validateTip(rnewpassword.next(),{"color":"#666666"},"* 请输入与上面一致的密码",false);
 	}).on("blur",function(){
-		if(rnewpassword.val() != null && rnewpassword.val().length >= 6
+		if(rnewpassword.val() != null && rnewpassword.val().length > 5
 				&& rnewpassword.val().length < 20 && newpassword.val() == rnewpassword.val()){
 			validateTip(rnewpassword.next(),{"color":"green"},imgYes,true);
 		}else{
@@ -68,10 +69,8 @@ $(function(){
 		oldpassword.blur();
 		newpassword.blur();
 		rnewpassword.blur();
-		// oldpassword.attr("validateStatus") == "true"
-		// &&
-		if( oldpassword.attr("validateStatus") == "true"
-			&&newpassword.attr("validateStatus") == "true"
+		if(oldpassword.attr("validateStatus") == "true" 
+			&& newpassword.attr("validateStatus") == "true"
 			&& rnewpassword.attr("validateStatus") == "true"){
 			if(confirm("确定要修改密码？")){
 				$("#userForm").submit();

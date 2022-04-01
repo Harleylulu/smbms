@@ -36,6 +36,18 @@
         <url-pattern>/jsp/logout.do</url-pattern>
     </servlet-mapping>
 
+    <!-- 修改密码 -->
+    <servlet>
+        <servlet-name>modifyPassword</servlet-name>
+        <servlet-class>com.harley.servlet.UserModifyPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>modifyPassword</servlet-name>
+        <url-pattern>/jsp/user.do</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- 权限管理 -->
     <filter>
         <filter-name>permissionFilter</filter-name>
         <filter-class>com.harley.filter.PermissionFilter</filter-class>
@@ -49,4 +61,9 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+
+    <!-- 设置session过期时间-->
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
 </web-app>

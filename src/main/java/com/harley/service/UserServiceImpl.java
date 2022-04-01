@@ -20,4 +20,8 @@ public class UserServiceImpl implements UserService{
         }
         return null;
     }
+
+    public boolean UpdateUserPwd(String userCode, String newPassword) {
+        return userDao.UpdateUserPwd(userCode, newPassword) > 0;
+    }
 }

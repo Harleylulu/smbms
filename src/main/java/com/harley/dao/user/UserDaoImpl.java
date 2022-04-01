@@ -16,6 +16,15 @@ public class UserDaoImpl implements UserDao{
         } finally {
             session.close();
         }
+    }
 
+    public int UpdateUserPwd(String userCode, String newPassword) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).UpdateUserPwd(userCode, newPassword);
+        } finally {
+            session.commit();
+            session.close();
+        }
     }
 }

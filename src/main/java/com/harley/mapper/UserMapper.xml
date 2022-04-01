@@ -10,4 +10,10 @@
     <select id="getUserByUserCode" resultType="com.harley.pojo.User">
         select * from smbms.smbms_user where userCode = #{userCode}
     </select>
+
+    <update id="UpdateUserPwd" parameterType="string">
+        update smbms.smbms_user
+        set userPassword = #{newPassWord}
+        where userCode = #{userCode};
+    </update>
 </mapper>
