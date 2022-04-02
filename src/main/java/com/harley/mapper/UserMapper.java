@@ -15,5 +15,10 @@ public interface UserMapper {
     //–ﬁ∏ƒ”√ªß√‹¬Î
     public int UpdateUserPwd(@Param("userCode") String userCode,@Param("newPassWord") String newPassword);
 
+    public int getUserCount(@Param("userName") String userName,@Param("userRole") Integer userRole);
 
+    public List<User> getUserByNameAndRole(@Param("userName") String userName,
+                                           @Param("userRole") Integer userRole,
+                                           @Param("offset") Integer offset,
+                                           @Param("pageSize") Integer pageSize);
 }

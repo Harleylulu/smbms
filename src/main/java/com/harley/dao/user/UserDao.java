@@ -11,4 +11,7 @@ public interface UserDao {
     //ĞŞ¸ÄÓÃ»§ÃÜÂë
     public int UpdateUserPwd(String userCode, String newPassword);
 
+    public int getUserCount(String userName, Integer userRole);
+
+    public List<User> getUserByNameAndRole(String userName, Integer userRole,Integer offset,Integer pageSize);
 }

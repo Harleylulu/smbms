@@ -12,7 +12,7 @@ public class UserDaoImpl implements UserDao{
     public User getLoginUser(String userCode) {
         SqlSession session = MybatisUtils.getSqlSession();
         try{
-            return  session.getMapper(UserMapper.class).getUserByUserCode(userCode);
+            return session.getMapper(UserMapper.class).getUserByUserCode(userCode);
         } finally {
             session.close();
         }
@@ -24,6 +24,24 @@ public class UserDaoImpl implements UserDao{
             return session.getMapper(UserMapper.class).UpdateUserPwd(userCode, newPassword);
         } finally {
             session.commit();
+            session.close();
+        }
+    }
+
+    public int getUserCount(String userName, Integer userRole) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).getUserCount(userName, userRole);
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<User> getUserByNameAndRole(String userName, Integer userRole, Integer offset, Integer pageSize) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).getUserByNameAndRole(userName, userRole, offset, pageSize);
+        } finally {
             session.close();
         }
     }

@@ -16,4 +16,35 @@
         set userPassword = #{newPassWord}
         where userCode = #{userCode};
     </update>
+    
+    <select id="getUserCount" resultType="integer">
+        select count(1) from smbms.smbms_user
+        <where>
+            <if test="userName != null and userName != ''">
+                AND userName like "%"#{userName}"%"
+            </if>
+            <if test="userRole != null and userRole > 0">
+                AND userRole = #{userRole}
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserByNameAndRole" resultType="com.harley.pojo.User">
+        SELECT
+            u.*,
+            r.roleName AS userRoleName
+        FROM
+            smbms.smbms_user AS u,
+            smbms.smbms_role AS r
+        WHERE
+            u.userRole = r.id
+        <if test="userName != null and userName != ''">
+            AND userName like "%"#{userName}"%"
+        </if>
+        <if test="userRole != null and userRole > 0">
+            AND userRole = #{userRole}
+        </if>
+        LIMIT #{offset},#{pageSize}
+    </select>
+
 </mapper>

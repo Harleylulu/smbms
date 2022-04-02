@@ -40,4 +40,24 @@ public class UserMapperTest {
         session.commit();
         session.close();
     }
+
+    @Test
+    public void testGetUserCount(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int number = mapper.getUserCount(null, null);
+        System.out.println(number);
+        session.close();
+    }
+
+    @Test
+    public void testGetUserByNameAndRole(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        List<User> userList = mapper.getUserByNameAndRole(null, 0,0,5);
+        for (User user : userList) {
+            System.out.println(user);
+        }
+        session.close();
+    }
 }
