@@ -135,6 +135,6 @@ public class UserModifyPasswordServlet extends HttpServlet {
                 .createdBy(((User)req.getSession().getAttribute(Constants.USER_SESSION)).getUserRole()).build();
         userService.addUser(user);
 
-        resp.sendRedirect("/SMBMS/jsp/useradd.jsp");
+        resp.sendRedirect("SMBMS/jsp/user.do?method=query");
     }
 }
