@@ -8,6 +8,7 @@ import com.harley.service.RoleServiceImpl;
 import com.harley.service.UserService;
 import com.harley.service.UserServiceImpl;
 import com.harley.util.Constants;
+import lombok.SneakyThrows;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,8 @@ public class UserModifyPasswordServlet extends HttpServlet {
         } else if("query".equals(method)){
             queryUser(req,resp);
             //TODO:“Ï≤ΩªÒ»°£ø
+        } else if("add".equals(method)){
+            addUser(req,resp);
         }
     }
 
@@ -116,5 +120,21 @@ public class UserModifyPasswordServlet extends HttpServlet {
         req.setAttribute("queryUserRole", queryUserRole);
 
         req.getRequestDispatcher("/jsp/userlist.jsp").forward(req, resp);
+    }
+
+    @SneakyThrows
+    private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = User.builder().userCode(req.getParameter("userCode"))
+                .userName(req.getParameter("userName"))
+                .userPassword(req.getParameter("userPassword"))
+                .gender(Integer.parseInt(req.getParameter("gender")))
+                .birthday(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthday")))
+                .phone(req.getParameter("phone"))
+                .address(req.getParameter("address"))
+                .userRole(Integer.parseInt(req.getParameter("userRole")))
+                .createdBy(((User)req.getSession().getAttribute(Constants.USER_SESSION)).getUserRole()).build();
+        userService.addUser(user);
+
+        resp.sendRedirect("/SMBMS/jsp/useradd.jsp");
     }
 }

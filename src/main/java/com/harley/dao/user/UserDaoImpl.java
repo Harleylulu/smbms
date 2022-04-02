@@ -45,4 +45,23 @@ public class UserDaoImpl implements UserDao{
             session.close();
         }
     }
+
+    public int isUserRoleCodeExist(String userCode) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).isUserRoleCodeExist(userCode);
+        } finally {
+            session.close();
+        }
+    }
+
+    public int addUser(User user) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).addUser(user);
+        } finally {
+            session.commit();
+            session.close();
+        }
+    }
 }

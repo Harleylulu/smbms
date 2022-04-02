@@ -47,4 +47,13 @@
         LIMIT #{offset},#{pageSize}
     </select>
 
+    <select id="isUserRoleCodeExist" resultType="int" parameterType="String">
+        SELECT COUNT(1) FROM smbms.smbms_user WHERE userCode=#{userCode}
+    </select>
+
+    <insert id="addUser">
+        INSERT INTO smbms.smbms_user(userCode,userName,userPassword,gender,birthday,phone,address,userRole,createdBy,creationDate)
+        VALUES(#{userCode},#{userName},#{userPassword},#{gender},#{birthday},#{phone},#{address},#{userRole},#{createdBy},#{creationDate})
+    </insert>
+
 </mapper>

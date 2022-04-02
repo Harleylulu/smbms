@@ -4,6 +4,7 @@ import com.harley.dao.user.UserDao;
 import com.harley.dao.user.UserDaoImpl;
 import com.harley.pojo.User;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserServiceImpl implements UserService{
@@ -31,15 +32,23 @@ public class UserServiceImpl implements UserService{
         return userDao.getUserCount(userName, userRole);
     }
 
+    /**
+     * 1  5   -->   01234   -->   0  5
+     * 2  5   -->   56789   -->   5  5
+     * 3  5   -->   10...   -->   10 5
+     * ....
+     * currentPage pageSize-->(currentPage-1)*pageSize pageSize
+     */
     public List<User> getUserByNameAndRole(String userName, Integer userRole, Integer currentPage, Integer pageSize) {
        return userDao.getUserByNameAndRole(userName, userRole,(currentPage-1) * pageSize,pageSize);
     }
-}
 
-/**
- * 1  5   -->   01234   -->   0  5
- * 2  5   -->   56789   -->   5  5
- * 3  5   -->   10...   -->   10 5
- * ....
- * currentPage pageSize-->(currentPage-1)*pageSize pageSize
- */
+    public boolean isUserRoleCodeExist(String userCode) {
+        return userDao.isUserRoleCodeExist(userCode) != 0;
+    }
+
+    public int addUser(User user) {
+        user.setCreationDate(new Date());
+        return userDao.addUser(user);
+    }
+}

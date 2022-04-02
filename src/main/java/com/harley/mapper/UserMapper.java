@@ -21,4 +21,10 @@ public interface UserMapper {
                                            @Param("userRole") Integer userRole,
                                            @Param("offset") Integer offset,
                                            @Param("pageSize") Integer pageSize);
+
+    public int isUserRoleCodeExist(@Param("userCode") String userCode);
+
+    public int addUser(User user);
+
+
 }

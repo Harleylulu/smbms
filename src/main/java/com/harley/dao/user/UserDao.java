@@ -14,4 +14,8 @@ public interface UserDao {
     public int getUserCount(String userName, Integer userRole);
 
     public List<User> getUserByNameAndRole(String userName, Integer userRole,Integer offset,Integer pageSize);
+
+    public int isUserRoleCodeExist(String userCode);
+
+    public int addUser(User user);
 }

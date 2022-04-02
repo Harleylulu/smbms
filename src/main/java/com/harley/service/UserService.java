@@ -14,4 +14,8 @@ public interface UserService {
     public int getUserCount(String userName, Integer userRole);
 
     public List<User> getUserByNameAndRole(String userName, Integer userRole, Integer currentPage, Integer pageSize);
+
+    public boolean isUserRoleCodeExist(String userCode);
+
+    public int addUser(User user);
 }

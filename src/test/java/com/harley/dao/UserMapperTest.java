@@ -6,6 +6,7 @@ import com.harley.util.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserMapperTest {
@@ -59,5 +60,13 @@ public class UserMapperTest {
             System.out.println(user);
         }
         session.close();
+    }
+
+    @Test
+    public void testIsUserRoleCodeExist(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int wen = mapper.isUserRoleCodeExist("we1n");
+        System.out.println(wen);
     }
 }

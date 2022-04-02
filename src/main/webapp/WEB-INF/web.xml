@@ -46,6 +46,25 @@
         <url-pattern>/jsp/user.do</url-pattern>
     </servlet-mapping>
 
+    <!--获取全部角色-->
+    <servlet>
+        <servlet-name>getRoleServlet</servlet-name>
+        <servlet-class>com.harley.servlet.GetRoleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getRoleServlet</servlet-name>
+        <url-pattern>/user/getrolelist</url-pattern>
+    </servlet-mapping>
+
+    <!-- 判断角色编码是否存在 -->
+    <servlet>
+        <servlet-name>isUserRoleCodeExistServlet</servlet-name>
+        <servlet-class>com.harley.servlet.IsUserRoleCodeExistServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>isUserRoleCodeExistServlet</servlet-name>
+        <url-pattern>/user/ucexist</url-pattern>
+    </servlet-mapping>
 
     <!-- 权限管理 -->
     <filter>
