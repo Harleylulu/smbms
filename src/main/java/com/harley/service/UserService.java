@@ -2,6 +2,7 @@ package com.harley.service;
 
 import com.harley.pojo.User;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {
@@ -22,4 +23,6 @@ public interface UserService {
     public int delUserById(Integer uid);
 
     public User getUserById(Integer uid);
+
+    public int modifyUser(Integer id, String userName, Integer gender, Date birthday, String phone, String address, Integer userRole);
 }

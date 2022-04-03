@@ -79,4 +79,13 @@ public class UserMapperTest {
         System.out.println(user);
         session.close();
     }
+
+    @Test
+    public void testModifyUser(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int i = mapper.modifyUser(7, "··", 1, new Date(), "12345678910", "ddd", 1);
+        System.out.println(i);
+        session.close();
+    }
 }

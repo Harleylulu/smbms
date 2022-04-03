@@ -59,4 +59,8 @@ public class UserServiceImpl implements UserService{
     public User getUserById(Integer uid) {
         return userDao.getUserById(uid);
     }
+
+    public int modifyUser(Integer id, String userName, Integer gender, Date birthday, String phone, String address, Integer userRole) {
+        return userDao.modifyUser(id, userName, gender, birthday, phone, address, userRole);
+    }
 }

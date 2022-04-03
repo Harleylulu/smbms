@@ -59,5 +59,16 @@
     <delete id="deleteUserById" parameterType="int">
         delete from smbms.smbms_user where id=#{uid};
     </delete>
+    
+    <update id="modifyUser">
+        update smbms.smbms_user
+        set userName=#{userName},
+            gender=#{gender},
+            birthday=#{birthday},
+            phone=#{phone},
+            address=#{address},
+            userRole=#{userRole}
+        where id=#{id};
+    </update>
 
 </mapper>

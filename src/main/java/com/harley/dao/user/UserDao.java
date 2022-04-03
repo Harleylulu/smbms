@@ -1,7 +1,9 @@
 package com.harley.dao.user;
 
 import com.harley.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserDao {
@@ -22,4 +24,6 @@ public interface UserDao {
     public int delUserById(Integer uid);
 
     public User getUserById(Integer uid);
+
+    public int modifyUser(Integer id, String userName, Integer gender, Date birthday, String phone, String address, Integer userRole);
 }

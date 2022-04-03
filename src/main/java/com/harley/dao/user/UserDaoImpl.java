@@ -5,6 +5,7 @@ import com.harley.pojo.User;
 import com.harley.util.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao{
@@ -80,6 +81,16 @@ public class UserDaoImpl implements UserDao{
         try {
             return session.getMapper(UserMapper.class).getUserById(uid);
         } finally {
+            session.close();
+        }
+    }
+
+    public int modifyUser(Integer id, String userName, Integer gender, Date birthday, String phone, String address, Integer userRole) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).modifyUser(id, userName, gender, birthday, phone, address, userRole);
+        } finally {
+            session.commit();
             session.close();
         }
     }

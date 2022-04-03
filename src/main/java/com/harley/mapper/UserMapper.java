@@ -4,6 +4,7 @@ import com.harley.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserMapper {
@@ -31,4 +32,12 @@ public interface UserMapper {
 
     @Select("select u.*,r.roleName AS userRoleName from smbms.smbms_user AS u,smbms.smbms_role AS r where u.id = #{uid} AND u.userRole=r.id")
     public User getUserById(@Param("uid") Integer userId);
+
+    public int modifyUser(@Param("id")Integer id,
+                          @Param("userName")String userName,
+                          @Param("gender")Integer gender,
+                          @Param("birthday")Date birthday,
+                          @Param("phone")String phone,
+                          @Param("address")String address,
+                          @Param("userRole")Integer userRole);
 }

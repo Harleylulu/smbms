@@ -85,6 +85,15 @@
         <url-pattern>/user/view</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>userModifyServlet</servlet-name>
+        <servlet-class>com.harley.servlet.UserModifyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userModifyServlet</servlet-name>
+        <url-pattern>/user/modify.do</url-pattern>
+    </servlet-mapping>
+
     <!-- 权限管理 -->
     <filter>
         <filter-name>permissionFilter</filter-name>

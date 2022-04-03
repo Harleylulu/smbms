@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +31,17 @@ public class UserModifyPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String method = req.getParameter("method");
-        if("savepwd".equals(method)){   //修改密码
+        if ("savepwd".equals(method)) {   //修改密码
             updatePassword(req, resp);
-        } else if("pwdmodify".equals(method)){  //旧密码验证
+        } else if ("pwdmodify".equals(method)) {  //旧密码验证
             VerifyOldPassword(req, resp);
-        } else if("query".equals(method)){
-            queryUser(req,resp);
+        } else if ("query".equals(method)) {
+            queryUser(req, resp);
             //TODO:异步获取？
-        } else if("add".equals(method)){
-            addUser(req,resp);
+        } else if ("add".equals(method)) {
+            addUser(req, resp);
+        } else if ("modifyexe".equals(method)) {
+            modifyUser(req, resp);
         }
     }
 
@@ -51,25 +54,25 @@ public class UserModifyPasswordServlet extends HttpServlet {
         User user = (User) req.getSession().getAttribute(Constants.USER_SESSION);
         String newPassword = req.getParameter("newpassword");
         boolean isSuccess = userService.UpdateUserPwd(user.getUserCode(), newPassword);
-        if(isSuccess){
-            req.setAttribute("message","修改密码成功，请退出后登陆");
+        if (isSuccess) {
+            req.setAttribute("message", "修改密码成功，请退出后登陆");
             req.getSession().removeAttribute(Constants.USER_SESSION);
         } else {
             // 设置失败
-            req.setAttribute("message","修改密码失败");
+            req.setAttribute("message", "修改密码失败");
         }
-        req.getRequestDispatcher("/jsp/pwdmodify.jsp").forward(req,resp);
+        req.getRequestDispatcher("/jsp/pwdmodify.jsp").forward(req, resp);
     }
 
     private void VerifyOldPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String oldPassword = req.getParameter("oldpassword");//用户输入的密码
         User user = (User) req.getSession().getAttribute(Constants.USER_SESSION);
-        Map<String,String> resultMap = new HashMap();
-        if (oldPassword == null || oldPassword.length() == 0){//输入密码为空
+        Map<String, String> resultMap = new HashMap();
+        if (oldPassword == null || oldPassword.length() == 0) {//输入密码为空
             resultMap.put("result", "error");
-        } else if (user == null){//session过期
+        } else if (user == null) {//session过期
             resultMap.put("result", "sessionerror");
-        } else if (!user.getUserPassword().equals(oldPassword)){
+        } else if (!user.getUserPassword().equals(oldPassword)) {
             resultMap.put("result", "false");
         } else {
             resultMap.put("result", "true");
@@ -82,41 +85,41 @@ public class UserModifyPasswordServlet extends HttpServlet {
         writer.close();
     }
 
-    private void queryUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    private void queryUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 获取查询结果总数，并传输给前端 totalCount
         String queryName = req.getParameter("queryname");
         String queryUserRole = req.getParameter("queryUserRole");
         Integer queryUserRoleId = 0;
-        if(queryUserRole != null){
+        if (queryUserRole != null) {
             queryUserRoleId = Integer.parseInt(queryUserRole);
         }
         int userCount = userService.getUserCount(queryName, queryUserRoleId);
-        req.setAttribute("totalCount",userCount);
+        req.setAttribute("totalCount", userCount);
 
         // 获取角色列表，并传输给前端 roleList
         List<Role> roleList = roleService.getAllRole();
-        req.setAttribute("roleList",roleList);
+        req.setAttribute("roleList", roleList);
 
         // 页面总数
-        int totalPageCount = (int)Math.ceil(userCount * 1.0/Constants.PAGE_SIZE);
+        int totalPageCount = (int) Math.ceil(userCount * 1.0 / Constants.PAGE_SIZE);
         req.setAttribute("totalPageCount", totalPageCount);
 
         // 当前页面
         int currentPageNo = 1;
         String pageIndex = req.getParameter("pageIndex");
-        if(pageIndex != null){
+        if (pageIndex != null) {
             currentPageNo = Integer.parseInt(pageIndex);
         }
-        currentPageNo=Math.max(currentPageNo, 1);
-        currentPageNo=Math.min(currentPageNo, totalPageCount);
+        currentPageNo = Math.max(currentPageNo, 1);
+        currentPageNo = Math.min(currentPageNo, totalPageCount);
         req.setAttribute("currentPageNo", currentPageNo);
 
         // 获取查询用户结果信息，并传输给前端
-        List<User> userList =userService.getUserByNameAndRole(queryName, queryUserRoleId,currentPageNo,Constants.PAGE_SIZE);
+        List<User> userList = userService.getUserByNameAndRole(queryName, queryUserRoleId, currentPageNo, Constants.PAGE_SIZE);
         req.setAttribute("userList", userList);
 
         //查询后的选择框不要发生变化
-        req.setAttribute("queryUserName",queryName);
+        req.setAttribute("queryUserName", queryName);
         req.setAttribute("queryUserRole", queryUserRole);
 
         req.getRequestDispatcher("/jsp/userlist.jsp").forward(req, resp);
@@ -132,9 +135,26 @@ public class UserModifyPasswordServlet extends HttpServlet {
                 .phone(req.getParameter("phone"))
                 .address(req.getParameter("address"))
                 .userRole(Integer.parseInt(req.getParameter("userRole")))
-                .createdBy(((User)req.getSession().getAttribute(Constants.USER_SESSION)).getUserRole()).build();
+                .createdBy(((User) req.getSession().getAttribute(Constants.USER_SESSION)).getUserRole()).build();
         userService.addUser(user);
 
         resp.sendRedirect("SMBMS/jsp/user.do?method=query");
+    }
+
+    @SneakyThrows
+    private void modifyUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Integer id = Integer.parseInt(req.getParameter("uid"));
+        System.out.println("======================");
+        System.out.println("id="+id);
+        System.out.println("======================");
+        String userName = req.getParameter("userName");
+        Integer gender = Integer.parseInt(req.getParameter("gender"));
+        Date birthday = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthday"));
+        String phone = req.getParameter("phone");
+        String address = req.getParameter("address");
+        Integer userRole = Integer.parseInt(req.getParameter("userRole"));
+
+        userService.modifyUser(id, userName, gender, birthday, phone, address, userRole);
+        req.getRequestDispatcher("/jsp/user.do?method=query").forward(req, resp);
     }
 }
