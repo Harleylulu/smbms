@@ -64,4 +64,14 @@ public class UserDaoImpl implements UserDao{
             session.close();
         }
     }
+
+    public int delUserById(Integer uid) {
+        SqlSession session = MybatisUtils.getSqlSession();
+        try {
+            return session.getMapper(UserMapper.class).deleteUserById(uid);
+        } finally {
+            session.commit();
+            session.close();
+        }
+    }
 }

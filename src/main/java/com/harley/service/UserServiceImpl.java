@@ -51,4 +51,8 @@ public class UserServiceImpl implements UserService{
         user.setCreationDate(new Date());
         return userDao.addUser(user);
     }
+
+    public int delUserById(Integer uid) {
+        return userDao.delUserById(uid);
+    }
 }

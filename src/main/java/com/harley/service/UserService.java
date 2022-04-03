@@ -18,4 +18,6 @@ public interface UserService {
     public boolean isUserRoleCodeExist(String userCode);
 
     public int addUser(User user);
+
+    public int delUserById(Integer uid);
 }

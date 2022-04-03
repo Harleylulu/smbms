@@ -66,6 +66,16 @@
         <url-pattern>/user/ucexist</url-pattern>
     </servlet-mapping>
 
+    <!-- 删除用户 -->
+    <servlet>
+        <servlet-name>deleteUserServlet</servlet-name>
+        <servlet-class>com.harley.servlet.DeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteUserServlet</servlet-name>
+        <url-pattern>/user/deluser</url-pattern>
+    </servlet-mapping>
+
     <!-- 权限管理 -->
     <filter>
         <filter-name>permissionFilter</filter-name>

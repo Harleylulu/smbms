@@ -56,4 +56,8 @@
         VALUES(#{userCode},#{userName},#{userPassword},#{gender},#{birthday},#{phone},#{address},#{userRole},#{createdBy},#{creationDate})
     </insert>
 
+    <delete id="deleteUserById" parameterType="int">
+        delete from smbms.smbms_user where id=#{uid};
+    </delete>
+
 </mapper>

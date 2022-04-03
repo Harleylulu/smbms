@@ -26,5 +26,7 @@ public interface UserMapper {
 
     public int addUser(User user);
 
+    public int deleteUserById(@Param("uid") Integer userId);
+
 
 }
