@@ -55,4 +55,8 @@ public class UserServiceImpl implements UserService{
     public int delUserById(Integer uid) {
         return userDao.delUserById(uid);
     }
+
+    public User getUserById(Integer uid) {
+        return userDao.getUserById(uid);
+    }
 }

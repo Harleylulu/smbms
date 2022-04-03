@@ -2,6 +2,7 @@ package com.harley.mapper;
 
 import com.harley.pojo.User;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,5 +29,6 @@ public interface UserMapper {
 
     public int deleteUserById(@Param("uid") Integer userId);
 
-
+    @Select("select u.*,r.roleName AS userRoleName from smbms.smbms_user AS u,smbms.smbms_role AS r where u.id = #{uid} AND u.userRole=r.id")
+    public User getUserById(@Param("uid") Integer userId);
 }

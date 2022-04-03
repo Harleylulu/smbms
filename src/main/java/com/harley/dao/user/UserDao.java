@@ -20,4 +20,6 @@ public interface UserDao {
     public int addUser(User user);
 
     public int delUserById(Integer uid);
+
+    public User getUserById(Integer uid);
 }

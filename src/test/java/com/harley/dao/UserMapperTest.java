@@ -68,5 +68,15 @@ public class UserMapperTest {
         UserMapper mapper = session.getMapper(UserMapper.class);
         int wen = mapper.isUserRoleCodeExist("we1n");
         System.out.println(wen);
+        session.close();
+    }
+
+    @Test
+    public void testGetUserById(){
+        SqlSession session = MybatisUtils.getSqlSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        User user = mapper.getUserById(1);
+        System.out.println(user);
+        session.close();
     }
 }

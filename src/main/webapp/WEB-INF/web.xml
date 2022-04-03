@@ -76,6 +76,15 @@
         <url-pattern>/user/deluser</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>viewUserServlet</servlet-name>
+        <servlet-class>com.harley.servlet.ViewUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>viewUserServlet</servlet-name>
+        <url-pattern>/user/view</url-pattern>
+    </servlet-mapping>
+
     <!-- 权限管理 -->
     <filter>
         <filter-name>permissionFilter</filter-name>
