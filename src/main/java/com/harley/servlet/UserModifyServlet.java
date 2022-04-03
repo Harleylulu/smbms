@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class UserModifyServlet extends HttpServlet {
 
@@ -35,6 +35,7 @@ public class UserModifyServlet extends HttpServlet {
     private void modifyUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer uid = Integer.parseInt(req.getParameter("uid"));
         User user = userService.getUserById(uid);
+        user.setBirthday(new java.sql.Date(user.getBirthday().getTime()));
         req.setAttribute("user",user);
         req.getRequestDispatcher("/jsp/usermodify.jsp").forward(req, resp);
     }
